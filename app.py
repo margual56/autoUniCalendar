@@ -7,10 +7,13 @@ from flask_talisman import Talisman
 from utils.http_utils import get_first_request, post_second_request
 from utils.data_utils import extract_cookies, create_csv
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
-Talisman(app, content_security_policy=None)
+enable_https = os.getenv("HTTPS", 'False').lower() in ('true', '1', 't')
+
+Talisman(app, content_security_policy=None, force_https=enable_https)
 
 
 @app.route("/", methods=["GET", "POST"])

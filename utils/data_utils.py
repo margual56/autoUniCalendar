@@ -42,7 +42,7 @@ def create_csv(file):
 
     # Write the headers in the first line.
     g.write(
-        "Asunto,Fecha de comienzo,Comienzo,Fecha de finalización,Finalización,Todo el dí­a,Reminder on/off,Reminder Date,Reminder Time,Meeting Organizer,Required Attendees,Optional Attendees,Recursos de la reuniÃƒÂ³n,Billing Information,Categories,Description,Location,Mileage,Priority,Private,Sensitivity,Show time as\n"
+        "Subject,Start Date,Start Time,End Date,End Time,All Day Event,Description,Reminder on/off,Reminder Date,Reminder Time,Meeting Organizer\n"
     )
 
     # Separate the events from its XML context.
@@ -95,7 +95,10 @@ def create_csv(file):
         event_creator = "Universidad de Oviedo"
         body = description.split('"')[3].replace(r"\n", "")
         # Write all the fields into a single line, and append it to the file.
-        csv_line = f"{title_csv},{start_date_csv},{start_hour},{end_date_csv},{end_hour},FALSO,FALSO,{alert_date},{alert_hour},{event_creator},,,,,,{body},,,Normal,Falso,Normal,2\n"
+        csv_line = f"{title_csv},{start_date_csv},{start_hour},{end_date_csv}"\
+                   f",{end_hour},FALSE,{body},FALSE,{alert_date},{alert_hour}"\
+                   f",{event_creator}\n"
+
         g.write(csv_line)
 
     print("[*] Events correctly written in the CSV file.")
